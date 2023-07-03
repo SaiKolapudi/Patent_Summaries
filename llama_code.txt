@@ -1,0 +1,100 @@
+converting the weghts to hf transformers
+
+nohup python3 convert_llama_weights_to_hf.py \
+    --input_dir /raid/sai/chat/llama --model_size 30B --output_dir /raid/sai/chat/llama/hf30b
+
+
+
+sample text
+
+input_ids = tokenizer.encode("tell me about india ", return_tensors="pt")
+output_ids = model.generate(input_ids, max_length=50)
+output_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+print(output_text)
+
+=====================================================================================
+
+
+from transformers import LlamaForCausalLM, LlamaTokenizer
+
+tokenizer = LlamaTokenizer.from_pretrained("hf30b")
+model = LlamaForCausalLM.from_pretrained("hf30b")
+
+
+summarization 
+
+>>> def summarize(prompt, article):
+...     input_ids = tokenizer.encode(prompt + " " + article, return_tensors="pt")
+...     output_ids = model.generate(input_ids, max_length=100)
+...     output_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+...     return output_text
+...
+
+>>> if __name__ == "__main__":
+...     prompt = "summarize this article"
+...     article = "The article discusses the latest research on the use of artificial intelligence in healthcare. The authors argue that AI has the potential to revolutionize healthcare by improving diagnosis, treatment, and prevention of disease. They also discuss the challenges that need to be addressed in order to make AI more widely adopted in healthcare."
+...     output = summarize(prompt, article)
+...     print(output)
+
+
+==================================================
+
+prompt = "summarize the below in 100 words. The abstract aims to provide a concise summary of a comprehensive review that examines the intricate relationship between artificial intelligence (AI) and human creativity. With the rapid advancements in AI technologies, the traditional notion of creativity as an exclusively human attribute has been challenged. This review explores the multifaceted interplay between AI and human creativity, considering both the potential opportunities and ethical implications. The review begins by elucidating the fundamental concepts of creativity and AI, establishing a common ground for subsequent discussions. It then delves into the various ways in which AI has been utilized to augment and enhance human creative processes across diverse domains, including art, music, literature, and design."
+
+
+
+
+ The abstract aims to provide a concise summary of a comprehensive review that examines the intricate relationship between artificial intelligence (AI) and human creativity. With the rapid advancements in AI technologies, the traditional notion of creativity as an exclusively human attribute has been challenged. This review explores the multifaceted interplay between AI and human creativity, considering both the potential opportunities and ethical implications. The review begins by elucidating the fundamental concepts of creativity and AI, establishing a common ground for subsequent discussions. It then delves into the various ways in which AI has been utilized to augment and enhance human creative processes across diverse domains, including art, music, literature, and design. The review also examines the potential of AI to become a creative agent in its own right, and the ethical implications'
+
+ The abstract aims to provide a concise summary of a comprehensive review that examines the intricate relationship between artificial intelligence (AI) and human creativity. With the rapid advancements in AI technologies, the traditional notion of creativity as an exclusively human attribute has been challenged. This review explores the multifaceted interplay between AI and human creativity, considering both the potential opportunities and ethical implications. The review begins by elucidating the fundamental concepts of creativity and AI, establishing a common ground for subsequent discussions. It then delves into the various ways in which AI has been utilized to augment and enhance human creative processes across diverse domains, including art, music, literature, and design. The review also examines the potential impact of AI on the creative industries, and the ethical implications of AI-assisted creativity.'
+
+
+ Examples of AI-generated creations are presented, showcasing the capabilities of generative models and machine learning algorithms in producing original and compelling works. However, the review does not limit itself to the positive aspects of AI and creativity. It also critically examines the ethical challenges and concerns that arise from the integration of AI in creative endeavors. Questions surrounding authorship, intellectual property rights, and the potential for AI to replace human creators are thoroughly explored. The impact on societal perceptions of creativity, the role of AI in shaping cultural narratives, and the implications for the future of work are also considered. To navigate these complex issues, the review discusses potential frameworks and guidelines for ethical AI development and deployment in creative fields. It emphasizes the importance of responsible AI design, transparency, and human oversight to ensure that AI systems remain tools that empower and collaborate with human creators rather than replace them. In conclusion, this comprehensive review sheds light on the intricate relationship between AI and human creativity. By examining the opportunities, challenges, and ethical considerations, it provides a holistic understanding of the potential implications of AI in shaping the future of creativity. The insights gained from this review can inform policymakers, practitioners, and researchers in developing responsible and beneficial approaches to leverage AI's capabilities while preserving the essence of human creativity."
+
+
+
+
+
+
+
+
+
+
+PROMPT = "tell me a joke"
+encoded = tokenizer(PROMPT, return_tensors = "pt")
+
+generated = model.generate(encoded["input_ids"])
+
+decoded = tokenizer.decode(generated)
+print(decoded)
+
+
+==============================================
+Working:
+
+from transformers import AutoTokenizer, LlamaForCausalLM
+
+model = LlamaForCausalLM.from_pretrained("hf65b")
+tokenizer = AutoTokenizer.from_pretrained("hf65b")
+
+prompt = "tell me about india"
+inputs = tokenizer(prompt, return_tensors="pt")
+
+# Generate
+generate_ids = model.generate(inputs.input_ids, max_length=200)
+tokenizer.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
+
+
+=================================================================
+
+mkdir ~/temp
+
+export TMPDIR=~/temp
+
+==================================================================
+
+
+
+ggml-alpaca-7b-q4.bin
+
+ggml-vicuna-13b-4bit-rev1.bin

@@ -1,0 +1,29 @@
+import torch
+from transformers import BertTokenizer, BertForSequenceClassification
+
+def extractive_summarize(abstract_text, num_sentences=3):
+    # Load the tokenizer and BERT model
+    tokenizer = BertTokenizer.from_pretrained("anferico/bert-for-patents")
+    model = BertForSequenceClassification.from_pretrained("anferico/bert-for-patents")
+
+    # Tokenize the abstract text
+    inputs = tokenizer.encode_plus(abstract_text, padding='max_length', truncation=True, max_length=512, return_tensors="pt")
+
+    # Perform forward pass to get the contextualized embeddings
+    outputs = model(input_ids=inputs["input_ids"], attention_mask=inputs["attention_mask"])
+    logits = outputs.logits
+
+    # Perform extractive summarization
+    sentence_scores = torch.nn.functional.softmax(logits, dim=1)
+    num_sentences = min(num_sentences, sentence_scores.size(1))  # Ensure number of sentences doesn't exceed available sentences
+    top_sentences_indices = torch.topk(sentence_scores.squeeze(), k=num_sentences).indices.tolist()
+
+    # Generate the summary by concatenating the top-ranked sentences
+    sentences = abstract_text.split(".")
+    summary = ". ".join([sentences[i].strip() for i in top_sentences_indices]) if top_sentences_indices else ""
+    return summary
+
+# Example usage
+abstract = "This patent describes a new method for detecting and treating cancer in humans. The method involves using a combination of nanoparticles and gene therapy to target cancer cells and deliver therapeutic agents directly to the tumor site. The nanoparticles are coated with specific ligands that can bind to cancer cells, allowing for targeted drug delivery. In addition, the gene therapy component involves introducing genetic material that can inhibit the growth of cancer cells and enhance the immune response. The combination of these approaches results in a more effective and precise treatment for cancer patients."
+summary = extractive_summarize(abstract)
+print(summary)
