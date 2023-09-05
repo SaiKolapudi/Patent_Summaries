@@ -87,4 +87,4 @@ The key to unlocking this treasure trove requires:
 
 ## Connect With Us
 
-Should queries beckon, feel free to reach out at junhua.ding@unt.edu. Your inquiries are valued and anticipated!
+Should queries beckon, feel free to reach out at saitulasi1729@gmail.com. Your inquiries are valued and anticipated!
