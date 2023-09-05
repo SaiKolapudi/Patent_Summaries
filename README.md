@@ -71,7 +71,7 @@ from evaluate import evaluate_all
 df = evaluate_all("patent_docs.csv")
 ```
 
-In this instance, `patent_docs.csv` holds the prized, preprocessed patent text.
+In this instance, `All_Patents.csv` holds the prized, preprocessed patent text.
 
 
 
