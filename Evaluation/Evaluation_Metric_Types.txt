@@ -1,0 +1,15 @@
+ROUGE (Recall-Oriented Understudy for Gisting Evaluation): ROUGE measures the overlap of n-grams (sequences of words) between the generated summary and a set of reference summaries. It includes metrics such as ROUGE-N (precision and recall of n-grams), ROUGE-L (longest common subsequence), and ROUGE-S (skip-bigram co-occurrence).
+
+BLEU (Bilingual Evaluation Understudy): BLEU calculates the precision of n-grams in the generated summary compared to a set of reference summaries. It measures how well the generated summary matches the reference summaries.
+
+METEOR (Metric for Evaluation of Translation with Explicit ORdering): METEOR considers precision, recall, and alignment of unigrams (single words) between the generated summary and reference summaries. It also incorporates additional features like stemming, synonymy, and word order.
+
+CIDER (Consensus-based Image Description Evaluation): CIDER is designed specifically for evaluating image captions but can be adapted for text summaries. It leverages consensus among reference summaries and measures the similarity of n-grams between the generated summary and references.
+
+NIST (Normalized Information-based Metric): NIST measures the weighted geometric mean of n-gram precision, where higher weights are assigned to longer n-grams. It assesses the quality of summaries based on the amount of information they convey compared to reference summaries.
+
+SARI (System-level Automatic Evaluation Metric for Text Generation): SARI evaluates the quality of the generated summary by comparing it to the input text. It considers three factors: content preservation, fluency, and simplicity.
+
+MoverScore: MoverScore calculates the similarity between the generated summary and reference summaries using an optimal transport-based approach. It measures the distance required to transform the words in the generated summary into the words in the reference summaries.
+
+BertScore: BertScore utilizes pre-trained contextualized word embeddings from BERT (Bidirectional Encoder Representations from Transformers) to calculate the similarity between the generated summary and reference summaries. It captures semantic and syntactic information.

@@ -1,0 +1,24 @@
+Extractive summarization models: These models extract the most important sentences from the original text to create a summary. They are typically simpler to train than abstractive summarization models, but they can produce summaries that are less fluent and informative. Some examples of extractive summarization models include TextRank, LexRank, and BERTScore.
+Abstractive summarization models: These models generate summaries that are more fluent and informative than extractive summaries. However, they are more complex to train and can sometimes produce summaries that are inaccurate or misleading. Some examples of abstractive summarization models include BART, T5, and GPT-3.
+Hybrid summarization models: These models combine the strengths of extractive and abstractive summarization models. They typically start by extracting the most important sentences from the original text, and then they use an abstractive model to generate a more fluent and informative summary. Some examples of hybrid summarization models include Text-to-Text Transfer Transformer (T5) and Multi-Task Unified Model (MUM).
+In addition to these three main types, there are also a number of other language models that can be used for summarization. These models include:
+
+Transformer-based models: These models are based on the Transformer architecture, which is a neural network architecture that has been shown to be very effective for natural language processing tasks. Some examples of transformer-based models for summarization include BART, T5, and GPT-3.
+Seq2seq models: These models are based on the sequence-to-sequence (seq2seq) architecture, which is a neural network architecture that can be used to translate between sequences of text or code. Some examples of seq2seq models for summarization include Seq2Seq-CNN and Seq2Seq-RNN.
+Attention-based models: These models use attention mechanisms to focus on the most important parts of the input text when generating summaries. Some examples of attention-based models for summarization include Attention Is All You Need and Transformer-XL.
+The best language model for summarization depends on the specific task and the desired output. For example, if you need a summary that is accurate and informative, then an abstractive summarization model may be a good choice. However, if you need a summary that is quick and easy to generate, then an extractive summarization model may be a better choice.
+
+
+
+===============================
+
+
+Sequence-to-sequence models use two recurrent neural networks (RNNs) to encode and decode input sentences into output summaries. An example of this type of model is the RNN encoder-decoder structure popularized by Vaswani et al. (2017).
+<https://arxiv.org/abs/1706.03762>
+
+Pointer models, also known as pointer network algorithms, assign weights to each word within the input sequence and then output the most important words using those assigned weights. This approach was introduced by Merity et al. (2016) <https://arxiv.org/abs/1609.04817>.
+
+Attention mechanisms, which gained prominence through the Transformer architecture presented by Vaswani et al. (2017), consider not only the order but also the importance of each word in the input sentence when generating the summary. Attention-based models have achieved state-of-the-art results in many NLP tasks.
+
+Generative Pre-training (GPT) uses transformer structures to achieve impressive results on multiple benchmark datasets such as LongRange and DocumentCorpus. These models were introduced by Radford et al. (2020a).
+
