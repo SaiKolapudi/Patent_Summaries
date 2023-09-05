@@ -52,26 +52,54 @@ The results section is a treasure trove of insights awaiting your perusal. Key t
 - The amalgamation of full abstracts and claims births summaries of superior quality compared to standalone sections
 - Nudging GPT-3.5 with instructions and examples results in a further embellishment of summarization excellence
 
-## Hands-On Interaction
+# Hands-On Implementation
 
-The nucleus of our summarization capabilities is encased within `summarize.py`. To set the wheels in motion:
+Unlock the power of patent document summarization with seamless integration through Hugging Face Transformers. Our capabilities come alive through the following steps:
 
-```python
-from summarize import summarize
+1. **Importing Essential Modules**
 
-text = "Insert your abstract text here"
-summary = summarize(text, model="HUPD-T5-Small")
-```
+   Begin by importing the necessary modules for effective summarization:
 
-For result replication, the evaluation scripts reside in `evaluate.py`. Simply execute:
+   ```python
+   from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+   ```
 
-```python
-from evaluate import evaluate_all
+2. **Loading the Model and Tokenizer**
 
-df = evaluate_all("patent_docs.csv")
-```
+   Initialize the model and tokenizer using Hugging Face's convenient methods:
 
-In this instance, `All_Patents.csv` holds the prized, preprocessed patent text.
+   ```python
+   model_name = "HUPD-T5-Small"
+   model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+   tokenizer = AutoTokenizer.from_pretrained(model_name)
+   ```
+
+3. **Summarization in Action**
+
+   Effortlessly generate a summary by providing the input text to the model:
+
+   ```python
+   def summarize(input_text):
+       input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=1024, truncation=True)
+       summary_ids = model.generate(input_ids, max_length=150, min_length=50, length_penalty=2.0, num_beams=4, early_stopping=True)
+       summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+       return summary
+   ```
+
+4. **Input Text and Summary Generation**
+
+   To kickstart the summarization process, call the `summarize` function:
+
+   ```python
+   input_text = "Insert your abstract text here"
+   generated_summary = summarize(input_text)
+   ```
+
+   Now, `generated_summary` contains the insightful summary of your input text, ready for your exploration.
+
+## Exploration and Beyond
+
+With this streamlined approach, you're empowered to delve into the realms of patent document summarization, courtesy of Hugging Face Transformers. The `summarize.py` module is your gateway to uncovering key insights, and generating impactful summaries has never been more accessible.
 
 
 
